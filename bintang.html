@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bintang</title>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <script>
+      const canvas = document.querySelector("#canvas");
+
+      // Menentukan dimensi canvas
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      canvas.style.backgroundColor = "grey";
+
+      const ctx = canvas.getContext("2d");
+
+      // Rectangle
+      ctx.fillStyle = "salmon";
+      ctx.strokeStyle = "yellow";
+      ctx.lineWidth = 10;
+      ctx.rect(50, 50, 150, 150);
+      ctx.fill();
+      ctx.stroke();
+
+      // Circle
+      ctx.beginPath();
+      ctx.fillStyle = "green";
+      ctx.strokeStyle = "white";
+      ctx.lineWidth = 20;
+      ctx.arc(300, 120, 75, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.stroke();
+
+      // Triangle
+      ctx.beginPath();
+      ctx.fillStyle = "yellow";
+      ctx.strokeStyle = "red";
+      ctx.lineWidth = 20;
+      ctx.moveTo(550, 50);
+      ctx.lineTo(625, 200);
+      ctx.lineTo(480, 200);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
+      // Bintang
+      //   let cx = 750,
+      //     cy = 120,
+      //     spikes = 5,
+      //     outerRadius = 20,
+      //     innerRadius = 10;
+      //   let rot = (Math.PI / 2) * 3;
+      //   let x = cx;
+      //   let y = cy;
+      //   let step = Math.PI / spikes;
+
+      //   ctx.beginPath();
+      //   ctx.moveTo(cx, cy - outerRadius);
+
+      //   for (let i = 0; i < spikes; i++) {
+      //     x = cx + Math.cos(rot) * outerRadius;
+      //     y = cy + Math.sin(rot) * outerRadius;
+      //     ctx.lineTo(x, y);
+      //     rot += step;
+
+      //     x = cx + Math.cos(rot) * innerRadius;
+      //     y = cy + Math.sin(rot) * innerRadius;
+      //     ctx.lineTo(x, y);
+      //     rot += step;
+      //   }
+
+      //   ctx.lineTo(cx, cy - outerRadius);
+      //   ctx.closePath();
+      //   ctx.lineWidth = 10;
+      //   ctx.strokeStyle = "blue";
+      //   ctx.fillStyle = "gold";
+      //   ctx.fill();
+      //   //   ctx.stroke();
+
+      const drawStar = (cx, cy, spikes, innerRadius, outerRadius) => {
+        let rot = (Math.PI / 2) * 3;
+        let x = cx;
+        let y = cy;
+        let step = Math.PI / spikes;
+
+        ctx.beginPath();
+        ctx.moveTo(cx, cy - outerRadius);
+
+        for (let i = 0; i < spikes; i++) {
+          x = cx + Math.cos(rot) * outerRadius;
+          y = cy + Math.sin(rot) * outerRadius;
+          ctx.lineTo(x, y);
+          rot += step;
+
+          x = cx + Math.cos(rot) * innerRadius;
+          y = cy + Math.sin(rot) * innerRadius;
+          ctx.lineTo(x, y);
+          rot += step;
+        }
+
+        ctx.lineTo(cx, cy - outerRadius);
+        ctx.closePath();
+        ctx.lineWidth = 1;
+        ctx.fillStyle = "black";
+        ctx.fillStyle = "yellow";
+        ctx.fill();
+        ctx.stroke();
+
+        // Menambahkan teks di tengah bintang
+        ctx.fillStyle = "blue"; // Warna teks
+        ctx.font = "15px pacifico"; // Ukuran dan jenis font
+        ctx.textAlign = "center"; // Alignmen horizontal
+        ctx.textBaseline = "middle"; // Alignmen vertikal
+        ctx.fillText("Matahari", cx, cy);
+      };
+
+      drawStar(900, 200, 15, 50, 35);
+    </script>
+  </body>
+</html>
